@@ -1,8 +1,0 @@
-* What is Luah
-Luah is a very simple library to use lua in C++.
-see src/test.cpp to get some idea to use.
-
-* TODO 
- - better document
- - class importer 
-
