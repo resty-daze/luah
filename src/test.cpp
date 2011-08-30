@@ -49,13 +49,6 @@ int main() {
 	regt(L);
 	regc(L);
 
-	typedef int (__thiscall A::* tf) ();
-	tf funcc = &A::g;
-	A a;
-	a.x = 3;
-	printf (" this is what ?  %d\n", (a.*funcc)());
-	
-
 	if (luaL_dofile(L, "test.lua") != 0) {
 		printf("%s\n", lua_tostring(L, -1));
 	}

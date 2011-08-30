@@ -43,7 +43,7 @@ def print_add_func(fp, k):
     print >> fp, """
     template <typename R%s>
     void add_func(lua_State* L, const char * name, R (*func)(%s) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t%d<R%s> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -59,7 +59,7 @@ def print_add_func_table(fp, k):
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(%s) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t%d<R%s> >::func, 1);
         lua_settable(L, n);
     }

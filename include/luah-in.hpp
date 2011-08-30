@@ -126,7 +126,7 @@ namespace internal {
 	class func_adaptor {
 	public:
 		static int func(lua_State *L) {
-			typename I::F f = static_cast<typename I::F>(lua_touserdata(L, lua_upvalueindex(1)));
+			typename I::F f = reinterpret_cast<typename I::F>(lua_touserdata(L, lua_upvalueindex(1)));
 			push(L, static_cast<R>(I::call(L, f)));
 			return 1;
 		}
@@ -136,7 +136,7 @@ namespace internal {
 	class func_adaptor<void, I> {
 	public:
 		static int func(lua_State *L) {
-			typename I::F f = static_cast<typename I::F>(lua_touserdata(L, lua_upvalueindex(1)));
+			typename I::F f = reinterpret_cast<typename I::F>(lua_touserdata(L, lua_upvalueindex(1)));
 			I::call(L, f);
 			return 0;
 		}

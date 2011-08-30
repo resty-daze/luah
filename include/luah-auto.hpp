@@ -1,6 +1,6 @@
 // luah-auto.hpp
 // this is auto-generated file by gen.py
-// generate time: 2011-08-14 10:44:17
+// generate time: 2011-08-31 04:11:28
 
 
 namespace luah {
@@ -86,7 +86,7 @@ namespace luah {
 
     template <typename R>
     void add_func(lua_State* L, const char * name, R (*func)() ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t0<R> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -94,7 +94,7 @@ namespace luah {
 
     template <typename R, typename A0>
     void add_func(lua_State* L, const char * name, R (*func)(A0) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t1<R, A0> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -102,7 +102,7 @@ namespace luah {
 
     template <typename R, typename A0, typename A1>
     void add_func(lua_State* L, const char * name, R (*func)(A0, A1) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t2<R, A0, A1> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -110,7 +110,7 @@ namespace luah {
 
     template <typename R, typename A0, typename A1, typename A2>
     void add_func(lua_State* L, const char * name, R (*func)(A0, A1, A2) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t3<R, A0, A1, A2> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -118,7 +118,7 @@ namespace luah {
 
     template <typename R, typename A0, typename A1, typename A2, typename A3>
     void add_func(lua_State* L, const char * name, R (*func)(A0, A1, A2, A3) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t4<R, A0, A1, A2, A3> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -126,7 +126,7 @@ namespace luah {
 
     template <typename R, typename A0, typename A1, typename A2, typename A3, typename A4>
     void add_func(lua_State* L, const char * name, R (*func)(A0, A1, A2, A3, A4) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t5<R, A0, A1, A2, A3, A4> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -134,7 +134,7 @@ namespace luah {
 
     template <typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
     void add_func(lua_State* L, const char * name, R (*func)(A0, A1, A2, A3, A4, A5) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t6<R, A0, A1, A2, A3, A4, A5> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -142,7 +142,7 @@ namespace luah {
 
     template <typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
     void add_func(lua_State* L, const char * name, R (*func)(A0, A1, A2, A3, A4, A5, A6) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t7<R, A0, A1, A2, A3, A4, A5, A6> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -150,7 +150,7 @@ namespace luah {
 
     template <typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
     void add_func(lua_State* L, const char * name, R (*func)(A0, A1, A2, A3, A4, A5, A6, A7) ) {
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t8<R, A0, A1, A2, A3, A4, A5, A6, A7> >::func, 1);
         lua_setglobal(L, name);
     }
@@ -165,7 +165,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)() ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t0<R> >::func, 1);
         lua_settable(L, n);
     }
@@ -175,7 +175,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(A0) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t1<R, A0> >::func, 1);
         lua_settable(L, n);
     }
@@ -185,7 +185,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(A0, A1) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t2<R, A0, A1> >::func, 1);
         lua_settable(L, n);
     }
@@ -195,7 +195,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(A0, A1, A2) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t3<R, A0, A1, A2> >::func, 1);
         lua_settable(L, n);
     }
@@ -205,7 +205,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(A0, A1, A2, A3) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t4<R, A0, A1, A2, A3> >::func, 1);
         lua_settable(L, n);
     }
@@ -215,7 +215,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(A0, A1, A2, A3, A4) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t5<R, A0, A1, A2, A3, A4> >::func, 1);
         lua_settable(L, n);
     }
@@ -225,7 +225,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(A0, A1, A2, A3, A4, A5) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t6<R, A0, A1, A2, A3, A4, A5> >::func, 1);
         lua_settable(L, n);
     }
@@ -235,7 +235,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(A0, A1, A2, A3, A4, A5, A6) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t7<R, A0, A1, A2, A3, A4, A5, A6> >::func, 1);
         lua_settable(L, n);
     }
@@ -245,7 +245,7 @@ namespace luah {
     void add_func_table(lua_State* L, ptrdiff_t n, const char * name, R (*func)(A0, A1, A2, A3, A4, A5, A6, A7) ) {
         n = n < 0 ? lua_gettop(L) + n + 1 : n;
         lua_pushstring(L, name);
-        lua_pushlightuserdata(L, func);
+        lua_pushlightuserdata(L, reinterpret_cast<void*>(func));
         lua_pushcclosure(L, internal::func_adaptor<R, internal::arg_t8<R, A0, A1, A2, A3, A4, A5, A6, A7> >::func, 1);
         lua_settable(L, n);
     }
