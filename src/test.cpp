@@ -1,63 +1,64 @@
 #include "luah.hpp"
+#include "utest.h"
 
-int func() {
-	return 3;
-}
-
-void func_void() {
-	printf("void test\n");
-}
-
-int sqr(int x) {
-	return x * x;
-}
-
-void my_print(const char * s) {
-	printf( " MY_PRINT:%s\n", s);
-}
-
-void init(lua_State *L) {
-	luah::add_func(L, "testf", func);
-	luah::add_func(L, "test_void", func_void);
-	luah::add_func(L, "sqr", sqr);
-	luah::add_func(L, "myprint", my_print);
-}
-
-void regt(lua_State * L) {
-	lua_newtable(L);
-	luah::add_func_table(L, -1, "x", func);
-	luah::add_func_table(L, -1, "v", func_void);
-	luah::add_func_table(L, -1, "sqr", sqr);
-	luah::add_func_table(L, -1, "print", my_print);
-	lua_setglobal(L, "t");
-}
-
-
-class A {
-public:
-	int x;
-	int g() {return x + 1;}
+struct LuaState { // RAII for lua state
+  LuaState() {
+    L = lua_open();
+  }
+  ~LuaState() {
+    if (L != NULL)
+      lua_close(L);
+  }
+  lua_State * L;
 };
-void regc(lua_State *L) {
+
+int test_int_func() {
+  return 6;
+}
+
+void test_void_func() {}
+
+double my_sqr_func(double x) {
+  return x * x;
+}
+
+char * double_func(const char* str) {
+  static char buf[1024];
+  snprintf(buf, sizeof(buf), "%s%s", str);
+  return buf;
+}
+
+TEST_CASE(reg_func) {
+  LuaState lua;
+  luaL_openlibs(lua.L);
+  luah::add_func(lua.L, "test_int_func", test_int_func);
+  luah::add_func(lua.L, "test_void_func", test_void_func);
+  luah::add_func(lua.L, "my_sqr", my_sqr_func);
+  luah::add_func(lua.L, "double_func", double_func);
+  ASSERT_TRUE_MSG(luaL_dofile(lua.L, "test_reg_func.lua") == 0, lua_tostring(lua.L, -1));
+}
+
+TEST_CASE(reg_func_to_table) {
+  LuaState lua;
+  luaL_openlibs(lua.L);
+  lua_newtable(lua.L);
+  luah::add_func_table(lua.L, -1, "tint", test_int_func);
+  luah::add_func_table(lua.L, -1, "tvoid", test_int_func);
+  luah::add_func_table(lua.L, -1, "mysqr", test_int_func);
+  luah::add_func_table(lua.L, -1, "double", test_int_func);
+  lua_setglobal(lua.L, "t");
+  ASSERT_TRUE_MSG(luaL_dofile(lua.L, "test_reg_func_table.lua") == 0, lua_tostring(lua.L, -1));
+}
+
+TEST_CASE(call_lua_func) {
+  LuaState lua;
+  luaL_openlibs(lua.L);
+  ASSERT_TRUE_MSG(luaL_dofile(lua.L, "test_call_func.lua") == 0, lua_tostring(lua.L, -1));
+  ASSERT_TRUE(luah::call_func<int>(lua.L, "calc", 1) == 2);
+  ASSERT_TRUE(luah::call_func<int>(lua.L, "add", 2, 3) == 5);
+  
 }
 
 int main() {
-	lua_State* L = lua_open();
-	luaL_openlibs(L);
-	short x = 2;
-	init(L);
-	regt(L);
-	regc(L);
-
-	if (luaL_dofile(L, "test.lua") != 0) {
-		printf("%s\n", lua_tostring(L, -1));
-	}
-
-	printf("calc()=%d\n", luah::call_func<int>(L, "calc"));
-	luah::call_func<void>(L, "hello");
-
-	printf("calc() = %.4f\n", luah::call_func<double>(L, "func", 6));
-
-
-	return 0;
+  return utest_run_all();
 }
