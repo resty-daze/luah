@@ -4,7 +4,7 @@
 #define LUAH_INCLUDED_
 
 #include <string>
-#include <vector>
+#include <cstdlib>
 
 extern "C" {
 
@@ -16,9 +16,8 @@ extern "C" {
 
 #include "luah-in.hpp"
 #include "luah-auto.hpp"
+#include "luah-class.hpp"
 
-namespace luah {
-}
 
 
 #endif

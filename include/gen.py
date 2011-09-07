@@ -8,15 +8,26 @@ def print_head(fp):
     print >> fp, "// generate time: " + datetime.datetime.now().strftime("%Y-%m-%d %X")
     print >> fp
 
-def print_arg_t(fp, count):
-    print >> fp, """
-namespace luah {
-namespace internal {
-"""
-    for i in xrange(1, count + 1):
-        print_arg_t_class(fp, i)
+def print_in_internal(fp, f):
+    print >> fp, """namespace luah {
+namespace internal {"""
+    f()
     print >> fp, """
 }}"""
+
+def print_arg_t(fp, count):
+    for i in xrange(1, count + 1):
+        print_arg_t_class(fp, i)
+
+def print_creator(fp, count):
+    for i in xrange(0, count + 1):
+        print >> fp, """
+    template <typename T%s>
+    T* creator_%d(lua_State* L) {
+        return new T(%s);
+    }""" % (string.join([", typename A%d" % x for x in xrange(i)], ""),
+            i,
+            string.join(["check_adaptor<A%d>::call(L, %d)" % (x, x+1) for x in xrange(i)], ", "))
 
 def print_arg_t_class(fp, i):
     print >> fp, """
@@ -90,7 +101,8 @@ def print_call_func(fp, k):
     
 fp = open("luah-auto.hpp", "w")
 print_head(fp)
-print_arg_t(fp, ARG_COUNT)
+print_in_internal(fp, lambda: print_arg_t(fp, ARG_COUNT))
+print_in_internal(fp, lambda: print_creator(fp, ARG_COUNT)) 
 print_in_luah(fp, print_add_func, ARG_COUNT + 1)
 print_in_luah(fp, print_add_func_table, ARG_COUNT + 1)
 print_in_luah(fp, print_call_func, ARG_COUNT + 1)
