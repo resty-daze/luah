@@ -1,5 +1,6 @@
 import string
 import datetime
+import re
 ARG_COUNT = 8
 
 def print_head(fp):
@@ -135,6 +136,11 @@ def print_method(fp, k):
              string.join([", A%d" % x for x in xrange(i)], '')
              )
 
+def print_ctor(fp):
+    print >> fp, """namespace luah {
+template <typename A0%s> struct ctor{int x;};
+}""" % string.join([", typename A%d=void" % x for x in xrange(1, ARG_COUNT)], '');
+
     
 fp = open("luah-auto.hpp", "w")
 print_head(fp)
@@ -145,6 +151,34 @@ print_in_luah(fp, print_add_func, ARG_COUNT + 1)
 print_in_luah(fp, print_add_func_table, ARG_COUNT + 1)
 print_in_luah(fp, print_call_func, ARG_COUNT + 1)
 print_in_luah(fp, print_method, ARG_COUNT + 1)
+print_ctor(fp)
+fp.close()
+
+def gen_cons_oper(n):
+    str = "///!! START_METHOD_IMPORTER\n"
+    str += """        internal::method_importer<T>& operator[](ctor<void>) {
+        creator_ = internal::creator_0<T>;
+        return importer_;
+	}"""
+    for i in xrange(1, n+1):
+        str += """
+        template <%s>
+        internal::method_importer<T>& operator[](ctor<%s>) {
+            creator_ = internal::creator_1<T, %s>;
+            return importer_;
+        }""" % ( string.join(["typename A%d" % x for x in xrange(i)], ', '),
+                 string.join(["A%d" % x for x in xrange(i)], ', '),
+                 string.join(["A%d" % x for x in xrange(i)], ', '))
+    str += "\n    ///!! END_METHOD_IMPORTER\n"
+    return str
+
+fp = open("luah-class.hpp")
+str = fp.read()
+fp.close()
+
+fp = open("luah-class.hpp", "w")
+print >> fp, "//"
+print >> fp, re.sub('///!! START_METHOD_IMPORTER(.|\n)*///!! END_METHOD_IMPORTER', gen_cons_oper(ARG_COUNT), str)
 fp.close()
 
 print "finished."

@@ -1,6 +1,6 @@
 // luah-auto.hpp
 // this is auto-generated file by gen.py
-// generate time: 2011-09-07 22:37:29
+// generate time: 2011-09-07 23:23:54
 
 namespace luah {
 namespace internal {
@@ -655,4 +655,7 @@ namespace luah {
 	return ret;
     }
 
+}
+namespace luah {
+template <typename A0, typename A1=void, typename A2=void, typename A3=void, typename A4=void, typename A5=void, typename A6=void, typename A7=void> struct ctor{int x;};
 }
