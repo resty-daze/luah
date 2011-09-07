@@ -1,6 +1,6 @@
 // luah-auto.hpp
 // this is auto-generated file by gen.py
-// generate time: 2011-09-07 16:10:11
+// generate time: 2011-09-07 22:37:29
 
 namespace luah {
 namespace internal {
@@ -125,6 +125,100 @@ namespace internal {
     T* creator_8(lua_State* L) {
         return new T(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5), check_adaptor<A5>::call(L, 6), check_adaptor<A6>::call(L, 7), check_adaptor<A7>::call(L, 8));
     }
+
+}}
+namespace luah {
+namespace internal {
+
+    template <typename T, typename R>
+    struct class_method_caller_0 {
+	typedef R (T::*f_type) ();
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)();
+	}
+    };
+
+    template <typename T, typename R, typename A0>
+    struct class_method_caller_1 {
+	typedef R (T::*f_type) (A0);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(check_adaptor<A0>::call(L, 1));
+	}
+    };
+
+    template <typename T, typename R, typename A0, typename A1>
+    struct class_method_caller_2 {
+	typedef R (T::*f_type) (A0,A1);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2));
+	}
+    };
+
+    template <typename T, typename R, typename A0, typename A1, typename A2>
+    struct class_method_caller_3 {
+	typedef R (T::*f_type) (A0,A1,A2);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3));
+	}
+    };
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3>
+    struct class_method_caller_4 {
+	typedef R (T::*f_type) (A0,A1,A2,A3);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4));
+	}
+    };
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3, typename A4>
+    struct class_method_caller_5 {
+	typedef R (T::*f_type) (A0,A1,A2,A3,A4);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5));
+	}
+    };
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
+    struct class_method_caller_6 {
+	typedef R (T::*f_type) (A0,A1,A2,A3,A4,A5);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5), check_adaptor<A5>::call(L, 6));
+	}
+    };
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+    struct class_method_caller_7 {
+	typedef R (T::*f_type) (A0,A1,A2,A3,A4,A5,A6);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5), check_adaptor<A5>::call(L, 6), check_adaptor<A6>::call(L, 7));
+	}
+    };
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+    struct class_method_caller_8 {
+	typedef R (T::*f_type) (A0,A1,A2,A3,A4,A5,A6,A7);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5), check_adaptor<A5>::call(L, 6), check_adaptor<A6>::call(L, 7), check_adaptor<A7>::call(L, 8));
+	}
+    };
 
 }}
 
@@ -447,5 +541,118 @@ namespace luah {
         return internal::check_adaptor<R>::call(L, 0);
     }
 
+
+}
+
+namespace luah {
+
+
+    template <typename T, typename R>
+    internal::method method (const char * name_, R (T::*f) ()) {
+	typedef R (T::*f_type) ();
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_0<T, R> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
+
+    template <typename T, typename R, typename A0>
+    internal::method method (const char * name_, R (T::*f) (A0)) {
+	typedef R (T::*f_type) (A0);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_1<T, R, A0> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
+
+    template <typename T, typename R, typename A0, typename A1>
+    internal::method method (const char * name_, R (T::*f) (A0,A1)) {
+	typedef R (T::*f_type) (A0,A1);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_2<T, R, A0, A1> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
+
+    template <typename T, typename R, typename A0, typename A1, typename A2>
+    internal::method method (const char * name_, R (T::*f) (A0,A1,A2)) {
+	typedef R (T::*f_type) (A0,A1,A2);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_3<T, R, A0, A1, A2> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3>
+    internal::method method (const char * name_, R (T::*f) (A0,A1,A2,A3)) {
+	typedef R (T::*f_type) (A0,A1,A2,A3);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_4<T, R, A0, A1, A2, A3> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3, typename A4>
+    internal::method method (const char * name_, R (T::*f) (A0,A1,A2,A3,A4)) {
+	typedef R (T::*f_type) (A0,A1,A2,A3,A4);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_5<T, R, A0, A1, A2, A3, A4> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
+    internal::method method (const char * name_, R (T::*f) (A0,A1,A2,A3,A4,A5)) {
+	typedef R (T::*f_type) (A0,A1,A2,A3,A4,A5);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_6<T, R, A0, A1, A2, A3, A4, A5> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
+    internal::method method (const char * name_, R (T::*f) (A0,A1,A2,A3,A4,A5,A6)) {
+	typedef R (T::*f_type) (A0,A1,A2,A3,A4,A5,A6);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_7<T, R, A0, A1, A2, A3, A4, A5, A6> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
+
+    template <typename T, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
+    internal::method method (const char * name_, R (T::*f) (A0,A1,A2,A3,A4,A5,A6,A7)) {
+	typedef R (T::*f_type) (A0,A1,A2,A3,A4,A5,A6,A7);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_8<T, R, A0, A1, A2, A3, A4, A5, A6, A7> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }
 
 }

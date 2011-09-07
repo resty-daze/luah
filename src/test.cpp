@@ -58,16 +58,24 @@ TEST_CASE(call_lua_func) {
     ASSERT_TRUE(luah::call_func<int>(lua.L, "add", 2, 3) == 5);  
 }
 
+bool destroy_flag = false;
 class TestClass {
 public:
     int get_a() {
+	t = &destroy_flag;
 	return a_;
     }
     void set_a(int a) {
 	a_ = a;
     }
+
+    ~TestClass() {
+	*t = true;
+    }
 private:
     int a_;
+public:
+    bool *t;
 };
 
 TEST_CASE(test_class) {
@@ -75,7 +83,9 @@ TEST_CASE(test_class) {
     luah::add_class<TestClass>(lua.L, "TestClass")[luah::ctor<void>()]
 	<< luah::method("get_a", &TestClass::get_a)
 	<< luah::method("set_a", &TestClass::set_a);
-	
+    luaL_openlibs(lua.L);
+    ASSERT_TRUE_MSG(luaL_dofile(lua.L, "test_class.lua") == 0, lua_tostring(lua.L, -1));
+    ASSERT_TRUE_MSG(destroy_flag, "didn't destruct test class");
 }
 
 int main() {

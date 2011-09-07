@@ -19,16 +19,6 @@ def print_arg_t(fp, count):
     for i in xrange(1, count + 1):
         print_arg_t_class(fp, i)
 
-def print_creator(fp, count):
-    for i in xrange(0, count + 1):
-        print >> fp, """
-    template <typename T%s>
-    T* creator_%d(lua_State* L) {
-        return new T(%s);
-    }""" % (string.join([", typename A%d" % x for x in xrange(i)], ""),
-            i,
-            string.join(["check_adaptor<A%d>::call(L, %d)" % (x, x+1) for x in xrange(i)], ", "))
-
 def print_arg_t_class(fp, i):
     print >> fp, """
     template <typename R, %s>
@@ -42,6 +32,32 @@ def print_arg_t_class(fp, i):
              i,
              string.join([("A%d" % x) for x in range(i)], ', '),
              string.join([("check_adaptor<A%d>::call(L, %d)" % (x, x+1)) for x in range(i)], ", "))
+
+def print_creator(fp, count):
+    for i in xrange(0, count + 1):
+        print >> fp, """
+    template <typename T%s>
+    T* creator_%d(lua_State* L) {
+        return new T(%s);
+    }""" % (string.join([", typename A%d" % x for x in xrange(i)], ""),
+            i,
+            string.join(["check_adaptor<A%d>::call(L, %d)" % (x, x+1) for x in xrange(i)], ", "))
+
+def print_class_method_caller(fp, count):
+    for i in xrange(0, count + 1):
+        print >> fp, """
+    template <typename T, typename R%s>
+    struct class_method_caller_%d {
+	typedef R (T::*f_type) (%s);
+	static R call(lua_State * L) {
+	    f_type f  = *(f_type*) (lua_touserdata(L, lua_upvalueindex(2))); 
+	    T* t =reinterpret_cast<T*> (lua_touserdata(L, lua_upvalueindex(1)));
+	    return (t->*f)(%s);
+	}
+    };""" %( string.join([", typename A%d" % x for x in xrange(i)], ""),
+             i,
+             string.join(["A%d" % x for x in xrange(i)], ','),
+             string.join(["check_adaptor<A%d>::call(L, %d)" % (x, x+1) for x in xrange(i)], ", "));
              
 def print_in_luah(fp, func, count):
     print >> fp, "\nnamespace luah {\n"
@@ -98,14 +114,37 @@ def print_call_func(fp, k):
         i + 1,
         string.join(["internal::push(L, a%d);" % x for x in range(i)], '\n        '),
         i)
+
+def print_method(fp, k):
+    i = k - 1
+    print >> fp, """
+    template <typename T, typename R%s>
+    internal::method method (const char * name_, R (T::*f) (%s)) {
+	typedef R (T::*f_type) (%s);
+	internal::method ret;
+	ret.name = name_;
+	ret.func = internal::class_method_adaptor<R, internal::class_method_caller_%d<T, R%s> >::call;
+	f_type * p = reinterpret_cast<f_type*> (malloc(sizeof(f_type)));
+	*p = f;
+	ret.upval = reinterpret_cast<void*>(p);
+	return ret;
+    }""" % ( string.join([", typename A%d" % x for x in xrange(i)], ''),
+             string.join(["A%d" % x for x in xrange(i)], ','),
+             string.join(["A%d" % x for x in xrange(i)], ','),
+             i,
+             string.join([", A%d" % x for x in xrange(i)], '')
+             )
+
     
 fp = open("luah-auto.hpp", "w")
 print_head(fp)
 print_in_internal(fp, lambda: print_arg_t(fp, ARG_COUNT))
-print_in_internal(fp, lambda: print_creator(fp, ARG_COUNT)) 
+print_in_internal(fp, lambda: print_creator(fp, ARG_COUNT))
+print_in_internal(fp, lambda: print_class_method_caller(fp, ARG_COUNT))
 print_in_luah(fp, print_add_func, ARG_COUNT + 1)
 print_in_luah(fp, print_add_func_table, ARG_COUNT + 1)
 print_in_luah(fp, print_call_func, ARG_COUNT + 1)
+print_in_luah(fp, print_method, ARG_COUNT + 1)
 fp.close()
 
 print "finished."
