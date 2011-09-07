@@ -1,6 +1,6 @@
 // luah-auto.hpp
 // this is auto-generated file by gen.py
-// generate time: 2011-09-07 23:23:54
+// generate time: 2011-09-07 23:38:41
 
 namespace luah {
 namespace internal {

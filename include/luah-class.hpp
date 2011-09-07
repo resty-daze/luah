@@ -1,5 +1,3 @@
-//
-//
 #ifndef LUAH_CLASS_
 #define LUAH_CLASS_
 
@@ -65,6 +63,7 @@ namespace luah {
             return importer_;
         }
     ///!! END_METHOD_IMPORTER
+
 
 
  
@@ -135,6 +134,7 @@ namespace luah {
 
 
 #endif
+
 
 
 

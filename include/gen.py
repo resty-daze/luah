@@ -177,7 +177,6 @@ str = fp.read()
 fp.close()
 
 fp = open("luah-class.hpp", "w")
-print >> fp, "//"
 print >> fp, re.sub('///!! START_METHOD_IMPORTER(.|\n)*///!! END_METHOD_IMPORTER', gen_cons_oper(ARG_COUNT), str)
 fp.close()
 
