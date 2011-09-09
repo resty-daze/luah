@@ -1,6 +1,6 @@
 test_set={f={}, msg={}}
 function add(msg, f) 
-   local id = #test_set.f
+   local id = #test_set.f + 1
    test_set.f[id] = f
    test_set.msg[id] = msg
 end

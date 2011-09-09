@@ -1,12 +1,12 @@
 test_set={f={}, msg={}}
 function add(msg, f) 
-   local id = #test_set.f
+   local id = #test_set.f + 1
    test_set.f[id] = f
    test_set.msg[id] = msg
 end
 
 -- testcases
-add("test int func", function() return test_init_func() == 6 end)
+add("test int func", function() return test_int_func() == 6 end)
 add("test void func", function() 
 			 test_void_func()
 			 return true 

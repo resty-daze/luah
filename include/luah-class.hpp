@@ -66,6 +66,7 @@ namespace luah {
 
 
 
+
  
         template <typename F>
         internal::method_importer<T>& operator<<(F f) {
@@ -134,6 +135,7 @@ namespace luah {
 
 
 #endif
+
 
 
 
