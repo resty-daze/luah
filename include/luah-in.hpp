@@ -112,7 +112,7 @@ namespace luah {
 	public:
             static T* call(lua_State *L, ptrdiff_t n) {
                 int bp = lua_gettop(L);
-                if (n < 0) n = bp + n + 1;
+                if (n < 0 && bp + n >= 0) n = bp + n + 1;
                 if (lua_isuserdata(L, n)) {
                     return static_cast<T*>(lua_touserdata(L, n));
                 }
@@ -195,7 +195,8 @@ namespace luah {
             method_set() : ct(0) {}
             ~method_set() {
                 for (size_t i = 0; i < ct; ++i)
-                    free(m_[i].upval);
+                    if (m_[i].upval != NULL) 
+                        free(m_[i].upval);
             }
         };
     

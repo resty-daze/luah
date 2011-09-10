@@ -14,4 +14,5 @@ test: test.o utest.o
 runtest: test
 	./test
 
-
+clean:
+	rm *.o

@@ -7,6 +7,7 @@ namespace luah {
         ret.name = name;
         ret.func = func;
         ret.upval = NULL;
+        return ret;
     }
 
     template <typename T>
@@ -146,7 +147,7 @@ namespace luah {
 
     template <typename T>
     T * get_instance(lua_State * L) {
-        return internal::check_adaptor<T*>::call(L, lua_upvalueindex(1));
+        return static_cast<T*>(lua_touserdata(L, lua_upvalueindex(1)));
     }
 }
 

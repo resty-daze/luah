@@ -269,3 +269,25 @@ TEST_CASE(user_define_class_ctor) {
         << luah::method("set_a", &TestClass::set_a);
     ASSERT_TRUE_MSG(luaL_dofile(lua.L, "test_class_udc.lua") == 0, lua_tostring(lua.L, -1));    
 }
+
+int my_method(lua_State * L) {
+    TestClass * tc = luah::get_instance<TestClass>(L);
+    if (lua_gettop(L) == 1) {
+        lua_pushnumber(L, tc->get_a());
+        tc->set_a(lua_tonumber(L, 1));
+        lua_pushnumber(L, tc->get_a());
+        return 2;
+    }
+    return 0;
+}
+
+TEST_CASE(user_define_method) {
+    LuaState lua;
+    luaL_openlibs(lua.L);
+    luah::add_class<TestClass>(lua.L, "TestClass")[luah::ctor<void>()]
+        << luah::method("get_a", &TestClass::get_a)
+        << luah::method("set_a", &TestClass::set_a)
+        << luah::method_ex("my_method", &my_method);
+    ASSERT_TRUE_MSG(luaL_dofile(lua.L, "test_class_udm.lua") == 0, lua_tostring(lua.L, -1));    
+
+}
