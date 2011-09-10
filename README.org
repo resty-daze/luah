@@ -1,0 +1,97 @@
+* LuaH
+
+** What is LuaH?
+When using lua in C++, the lua's native api is well designed, 
+but import functions to lua become a repetitive work. 
+So I wrote this library to help me to do this work. Compare 
+to other bind librarys, it keeps very lightweight. I'm trying 
+to keep the API simple.
+
+** Tutor
+*** Import a function to Lua
+in C++:
+You can import a function to lua as follow:
+
+#+begin_src c++
+  // function:
+  int function_to_export(int x) {
+      return x + 1;
+  }
+  // import:
+  // ...
+    luah::add_func(L, "my_func", function_to_export);
+  // ...
+#+end_src
+
+then, use it in lua:
+
+#+begin_src lua
+  print(my_func(3))
+#+end_src
+
+You can also import a function to a table:
+
+#+begin_src c++
+  // following code import the function_to_export to table
+  lua_newtable(L);
+  luah::add_func_table(L, -1, "my_func", function_to_export);
+  lua_setglobal(L, "my_table");
+#+end_src
+
+*** Call a lua function
+if we have a lua function:
+
+#+begin_src lua
+  function double(x)
+      return x * 2
+  end
+#+end_src
+
+then we can call it in C++:
+
+#+begin_src c++
+  int ret = luah::call_func<int>(L, "double", 6);
+#+end_src
+
+*** Import a class to Lua
+To make import a class to lua, it can be do as follow:
+#+begin_src c++
+  // a example class
+  class MyClass {
+  public:
+      MyClass(int x, int y) : 
+          x_(x), y_(y) {}
+      int get_sum() {
+          return x_ + y_;
+      }
+      void set_x(int x) {
+          x_ = x;
+      }
+      void set_y(int y) {
+          y_ = y;
+      }
+  private:
+      int x_, y_;
+  };
+  
+  // import code:
+      luah::add_class<MyClass>("myclass")[luah::ctor<int, int>()]
+          << luah::method("get_sum", &MyClass::get_sum)
+          << luah::method("set_x", &MyClass::set_x)
+          << luah::method("set_y", &MyClass::set_y);
+#+end_src
+
+then use in lua:
+
+#+begin_src lua
+  a = myclass(2, 3)
+  print(a.get_sum())
+  a.set_x(4)
+  print(a.get_sum())
+#+end_src
+
+hint: 
+  - the [luah::ctor<int, int>] is the to set the construct function of the class,
+      it means new T(int, int) will be called to create a new instance,
+      if you just want to call new T(), this part could be ignored.
+
