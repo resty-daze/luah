@@ -14,8 +14,13 @@ namespace luah {
             close(importer_.get_set().class_name_.c_str());
         }
 
-        template <typename F>
-        internal::method_importer<T>& operator[](F);
+        //        template <typename F>
+        //        internal::method_importer<T>& operator[](F);
+
+        internal::method_importer<T>& operator[](T* (*f) (lua_State * L)) {
+            creator_ = f;
+            return importer_;
+        }
  
         ///!! START_METHOD_IMPORTER
         internal::method_importer<T>& operator[](ctor<void>) {

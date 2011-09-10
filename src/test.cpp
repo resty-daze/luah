@@ -243,3 +243,29 @@ TEST_CASE(test_class) {
     ASSERT_TRUE_MSG(luaL_dofile(lua.L, "test_class.lua") == 0, lua_tostring(lua.L, -1));
     ASSERT_TRUE_MSG(destroy_flag, "didn't destruct test class");
 }
+
+TestClass * test_class_creator (lua_State * L) {
+    if (lua_gettop(L) == 1) {
+        return new(std::nothrow)TestClass();
+    }
+    else if (lua_gettop(L) == 2) {
+        if (lua_isnumber(L, 2)) {
+            TestClass * t = new TestClass();
+            t->set_a(lua_tonumber(L, 2));
+            return t;
+        }
+        if (lua_istable(L, 2)) {
+            return new(std::nothrow)TestClass(*luah::internal::check_adaptor<TestClass*>::call(L, 2));
+        }
+    }
+    return NULL;
+}
+
+TEST_CASE(user_define_class_ctor) {
+    LuaState lua;
+    luaL_openlibs(lua.L);
+    luah::add_class<TestClass>(lua.L, "TestClass")[test_class_creator]
+        << luah::method("get_a", &TestClass::get_a)
+        << luah::method("set_a", &TestClass::set_a);
+    ASSERT_TRUE_MSG(luaL_dofile(lua.L, "test_class_udc.lua") == 0, lua_tostring(lua.L, -1));    
+}
