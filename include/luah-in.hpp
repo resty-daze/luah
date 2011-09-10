@@ -260,6 +260,7 @@ namespace luah {
             static int call(lua_State *L) {
                 // upval 1: creator
                 // upval 2: method_se
+                lua_remove(L, 1);
                 
                 // step 1: create a new instance
                 typedef T * (*c_type) (lua_State *L);

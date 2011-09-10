@@ -42,7 +42,7 @@ def print_creator(fp, count):
         return new T(%s);
     }""" % (string.join([", typename A%d" % x for x in xrange(i)], ""),
             i,
-            string.join(["check_adaptor<A%d>::call(L, %d)" % (x, x+2) for x in xrange(i)], ", "))
+            string.join(["check_adaptor<A%d>::call(L, %d)" % (x, x+1) for x in xrange(i)], ", "))
 
 def print_class_method_caller(fp, count):
     for i in xrange(0, count + 1):

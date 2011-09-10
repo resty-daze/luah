@@ -1,6 +1,6 @@
 // luah-auto.hpp
 // this is auto-generated file by gen.py
-// generate time: 2011-09-10 01:23:13
+// generate time: 2011-09-10 10:01:54
 
 namespace luah {
 namespace internal {
@@ -88,42 +88,42 @@ namespace internal {
 
     template <typename T, typename A0>
     T* creator_1(lua_State* L) {
-        return new T(check_adaptor<A0>::call(L, 2));
+        return new T(check_adaptor<A0>::call(L, 1));
     }
 
     template <typename T, typename A0, typename A1>
     T* creator_2(lua_State* L) {
-        return new T(check_adaptor<A0>::call(L, 2), check_adaptor<A1>::call(L, 3));
+        return new T(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2));
     }
 
     template <typename T, typename A0, typename A1, typename A2>
     T* creator_3(lua_State* L) {
-        return new T(check_adaptor<A0>::call(L, 2), check_adaptor<A1>::call(L, 3), check_adaptor<A2>::call(L, 4));
+        return new T(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3));
     }
 
     template <typename T, typename A0, typename A1, typename A2, typename A3>
     T* creator_4(lua_State* L) {
-        return new T(check_adaptor<A0>::call(L, 2), check_adaptor<A1>::call(L, 3), check_adaptor<A2>::call(L, 4), check_adaptor<A3>::call(L, 5));
+        return new T(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4));
     }
 
     template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4>
     T* creator_5(lua_State* L) {
-        return new T(check_adaptor<A0>::call(L, 2), check_adaptor<A1>::call(L, 3), check_adaptor<A2>::call(L, 4), check_adaptor<A3>::call(L, 5), check_adaptor<A4>::call(L, 6));
+        return new T(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5));
     }
 
     template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
     T* creator_6(lua_State* L) {
-        return new T(check_adaptor<A0>::call(L, 2), check_adaptor<A1>::call(L, 3), check_adaptor<A2>::call(L, 4), check_adaptor<A3>::call(L, 5), check_adaptor<A4>::call(L, 6), check_adaptor<A5>::call(L, 7));
+        return new T(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5), check_adaptor<A5>::call(L, 6));
     }
 
     template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
     T* creator_7(lua_State* L) {
-        return new T(check_adaptor<A0>::call(L, 2), check_adaptor<A1>::call(L, 3), check_adaptor<A2>::call(L, 4), check_adaptor<A3>::call(L, 5), check_adaptor<A4>::call(L, 6), check_adaptor<A5>::call(L, 7), check_adaptor<A6>::call(L, 8));
+        return new T(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5), check_adaptor<A5>::call(L, 6), check_adaptor<A6>::call(L, 7));
     }
 
     template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
     T* creator_8(lua_State* L) {
-        return new T(check_adaptor<A0>::call(L, 2), check_adaptor<A1>::call(L, 3), check_adaptor<A2>::call(L, 4), check_adaptor<A3>::call(L, 5), check_adaptor<A4>::call(L, 6), check_adaptor<A5>::call(L, 7), check_adaptor<A6>::call(L, 8), check_adaptor<A7>::call(L, 9));
+        return new T(check_adaptor<A0>::call(L, 1), check_adaptor<A1>::call(L, 2), check_adaptor<A2>::call(L, 3), check_adaptor<A3>::call(L, 4), check_adaptor<A4>::call(L, 5), check_adaptor<A5>::call(L, 6), check_adaptor<A6>::call(L, 7), check_adaptor<A7>::call(L, 8));
     }
 
 }}

@@ -245,17 +245,17 @@ TEST_CASE(test_class) {
 }
 
 TestClass * test_class_creator (lua_State * L) {
-    if (lua_gettop(L) == 1) {
+    if (lua_gettop(L) == 0) {
         return new(std::nothrow)TestClass();
     }
-    else if (lua_gettop(L) == 2) {
-        if (lua_isnumber(L, 2)) {
+    else if (lua_gettop(L) == 1) {
+        if (lua_isnumber(L, 1)) {
             TestClass * t = new TestClass();
-            t->set_a(lua_tonumber(L, 2));
+            t->set_a(lua_tonumber(L, 1));
             return t;
         }
-        if (lua_istable(L, 2)) {
-            return new(std::nothrow)TestClass(*luah::internal::check_adaptor<TestClass*>::call(L, 2));
+        if (lua_istable(L, 1)) {
+            return new(std::nothrow)TestClass(*luah::internal::check_adaptor<TestClass*>::call(L, 1));
         }
     }
     return NULL;

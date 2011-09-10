@@ -2,6 +2,13 @@
 #define LUAH_CLASS_
 
 namespace luah {
+    internal::method method_ex(const char* name, lua_CFunction func) {
+        internal::method ret;
+        ret.name = name;
+        ret.func = func;
+        ret.upval = NULL;
+    }
+
     template <typename T>
     class add_class {
     public:
@@ -136,6 +143,11 @@ namespace luah {
         add_class(const add_class<T> &);
         void operator=(const add_class<T> &);
     };
+
+    template <typename T>
+    T * get_instance(lua_State * L) {
+        return internal::check_adaptor<T*>::call(L, lua_upvalueindex(1));
+    }
 }
 
 
